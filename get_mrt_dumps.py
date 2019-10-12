@@ -11,7 +11,7 @@ if __name__ == "__main__":
     links_dict = links.get_urls()
 
     if get_files:
-        downloader = DownloadDumps(links)
+        downloader = DownloadDumps(links_dict)
         downloader.download_files()
 
     else:
