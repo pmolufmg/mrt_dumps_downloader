@@ -7,7 +7,8 @@ if __name__ == "__main__":
     args = ArgsParser().get_args()
     get_files = args[0]
 
-    links = MrtUrlDict(args).get_urls()
+    links = MrtUrlDict(args)
+    links_dict = links.get_urls()
 
     if get_files:
         downloader = DownloadDumps(links)
