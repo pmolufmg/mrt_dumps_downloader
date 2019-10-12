@@ -36,6 +36,7 @@ Requirements:
  If --download is not used, it will just print the list of urls it would use to download dump files.
  
  Example:
+ 
  python get_mrt_dumps.py -p ripe routeviews -d 20170101 20180101 -dr 20190101 20190103 -n 2 --updates --ribs --download
  
  Would download 4 dump files (2 ribs and 2 updates) from each one of ripe's and routeview's collectors, with dates 2017/01/01, 2018/01/01, 2019/01/01, 2019/01/02 and 2019/01/03.
