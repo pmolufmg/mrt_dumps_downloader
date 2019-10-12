@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from args_parser import ArgsParser
-from mrt_urls import MrtUrlDict
+from urls_src.mrt_urls import MrtUrlDict
 from download_dumps import DownloadDumps
 
 if __name__ == "__main__":

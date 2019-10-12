@@ -1,8 +1,6 @@
 from urllib.request import urlretrieve as get_file
 import urllib.error
 from datetime import datetime as dt
-from threading import Thread
-import signal
 import sys
 from config import *
 
@@ -17,10 +15,7 @@ class DownloadDumps:
 
     def __init__(self, links_dict):
         self.links = links_dict
-        self.ongoing_projects = 0
         self.log_file = open(log_file, 'a+')
-        self.bar = self.init_progress_bar()
-        self.threads = []
 
     def download_files(self):
         try:
@@ -28,35 +23,27 @@ class DownloadDumps:
                 if not self.links[project]:
                     continue
 
-                thread = Thread(target=self.download_threads,
-                                    args=[project], daemon=False)
-                thread.start()
-                self.threads.append(thread)
-                signal.pause()
+                project_path = self.get_project_path(project)
+                bar = Bar(project, max=len(self.links[project]))
+
+                for url in self.links[project]:
+                    file = self.get_file_path(project, project_path, url)
+
+                    try:
+                        get_file(url, file)
+                        self.log_event(url)
+
+                    except urllib.error.URLError:
+                        self.log_event(url, error=True)
+                        continue
+
+                    finally:
+                        bar.next()
+                bar.finish()
 
         except KeyboardInterrupt:
             print('\nAborting...')
             sys.exit()
-
-
-    def download_threads(self, project):
-        project_path = self.get_project_path(project)
-
-        for url in self.links[project]:
-            file = self.get_file_path(project, project_path, url)
-
-            try:
-                get_file(url, file)
-                self.log_event(url)
-
-            except urllib.error.URLError:
-                self.log_event(url, error=True)
-
-                continue
-            finally:
-                self.show_progress()
-
-        self.finish_task()
 
     def get_file_path(self, project, project_path, url):
         base_dir = self.get_type_path(project_path, url)
@@ -109,29 +96,6 @@ class DownloadDumps:
             return 'updates'
         else:
             return 'ribs'
-
-    def show_progress(self):
-        self.bar.next()
-
-    def finish_task(self):
-        self.ongoing_projects -= 1
-        if self.ongoing_projects == 0:
-            self.bar.finish()
-            sys.exit()
-
-    def join_threads(self):
-        for thread in self.threads:
-            thread.join()
-
-    def init_progress_bar(self):
-        num_of_links = 0
-        for project in self.links:
-            if not self.links[project]:
-                continue
-            self.ongoing_projects += 1
-            num_of_links += len(self.links[project])
-
-        return Bar('Downloading files', max=num_of_links)
 
     def log_event(self, file, error=False):
         text = 'ERROR: ' if error else ''

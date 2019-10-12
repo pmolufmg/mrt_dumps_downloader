@@ -1,4 +1,5 @@
-from links import Links
+from urls_src.links import Links
+
 
 class RipeLinks(Links):
 

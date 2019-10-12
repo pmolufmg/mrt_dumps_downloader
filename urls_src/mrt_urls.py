@@ -1,7 +1,7 @@
-from routeviews_links import RouteViewsLinks
-from isolario_links import IsolarioLinks
-from ripe_links import RipeLinks
-from pch_links import PCHLinks
+from urls_src.routeviews_links import RouteViewsLinks
+from urls_src.isolario_links import IsolarioLinks
+from urls_src.ripe_links import RipeLinks
+from urls_src.pch_links import PCHLinks
 
 
 class MrtUrlDict:
