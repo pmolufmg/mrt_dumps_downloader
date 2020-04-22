@@ -1,14 +1,11 @@
-from urllib.request import urlretrieve as get_file
+from urllib.request import urlopen as get_file
 import urllib.error
+import subprocess
 from datetime import datetime as dt
 import sys
+import os
+import time
 from config import *
-
-try:
-    from progress.bar import Bar
-except ImportError:
-    sys.exit('We need Progress!\n'
-             'run "pip install progress" and try again.')
 
 
 class DownloadDumps:
@@ -20,26 +17,25 @@ class DownloadDumps:
     def download_files(self):
         try:
             for project in self.links:
+                print('{}: started {}'.format(dt.now(), project))
                 if not self.links[project]:
                     continue
 
                 project_path = self.get_project_path(project)
-                bar = Bar(project, max=len(self.links[project]))
 
                 for url in self.links[project]:
                     file = self.get_file_path(project, project_path, url)
-
-                    try:
-                        get_file(url, file)
-                        self.log_event(url)
-
-                    except urllib.error.URLError:
-                        self.log_event(url, error=True)
+                    if os.path.isfile(file):
                         continue
 
-                    finally:
-                        bar.next()
-                bar.finish()
+                    try:
+                        args = ['wget', '-O', file, url]
+                        proc = subprocess.run(args)
+                        self.log_event(url)
+
+                    except subprocess.SubprocessError:
+                        self.log_event(url, error=True)
+                        continue
 
         except KeyboardInterrupt:
             print('\nAborting...')
