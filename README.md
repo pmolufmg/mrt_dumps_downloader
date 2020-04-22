@@ -19,7 +19,7 @@ Requirements:
  
  Command line args:
  
- -p list of projects to fetch dump files (optional). If none, it will fetch from all projects (Ripe, RouteViews, Isolario and PCH)
+ -p list of projects to fetch dump files from (optional). If none, it will fetch from all projects (Ripe, RouteViews, Isolario and PCH)
  
  -d list of dates to get dumps from (format: yyyymmdd)
  
