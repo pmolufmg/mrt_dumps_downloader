@@ -29,7 +29,7 @@ class DownloadDumps:
                         continue
 
                     try:
-                        args = ['wget', '-O', file, url]
+                        args = ['curl', '-k', '-o', file, url]
                         proc = subprocess.run(args)
                         self.log_event(url)
 
