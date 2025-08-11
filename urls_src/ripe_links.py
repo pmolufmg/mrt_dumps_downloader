@@ -1,32 +1,12 @@
 from urls_src.links import Links
-
+from .get_all_collectors_ripe import get_ripe_collectors
 
 class RipeLinks(Links):
 
     def __init__(self, args):
         params = {}
-        params['domain'] = "http://data.ris.ripe.net"
-        params['collectors'] = ['rrc00',
-                                'rrc01',
-                                'rrc03',
-                                'rrc04',
-                                'rrc05',
-                                'rrc06',
-                                'rrc07',
-                                'rrc10',
-                                'rrc11',
-                                'rrc12',
-                                'rrc13',
-                                'rrc14',
-                                'rrc15',
-                                'rrc16',
-                                'rrc18',
-                                'rrc19',
-                                'rrc20',
-                                'rrc21',
-                                'rrc22',
-                                'rrc23']
-
+        params['domain'] = "https://data.ris.ripe.net"
+        params['collectors'] = get_ripe_collectors()
         params['rib_prefix'] = 'bview'
         params['update_prefix'] = 'updates'
 

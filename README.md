@@ -6,14 +6,11 @@ Ripe (https://www.ripe.net/analyse/internet-measurements/routing-information-ser
 
 Routeviews (http://archive.routeviews.org/), 
 
-Isolario (https://www.isolario.it/Isolario_MRT_data/) and 
-
-PCH (https://www.pch.net/resources/).
-
 Requirements:
  - Linux
  - Python 3.6+
- - 'Progress' module (pip install progress)
+ - requirements.txt (`pip install -r requirements.txt`)
+ - Curl (`apt-get install curl`)
  
  Usage
  
