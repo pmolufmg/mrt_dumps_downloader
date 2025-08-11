@@ -50,16 +50,6 @@ class DownloadDumps:
         elif project == 'routeviews':
             return self.get_full_path(base_dir, url, 3)
 
-        elif project == 'isolario':
-            return self.get_full_path(base_dir, url, 4)
-
-        elif project == 'pch':
-            if self.get_dump_type(url) == 'updates':
-                return self.get_full_path(base_dir, url, 5)
-
-            else:
-                return self.get_full_path(base_dir, url, 8)
-
         else:
             raise NameError
 
