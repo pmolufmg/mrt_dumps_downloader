@@ -126,7 +126,5 @@ dmypy.json
 
 /logs/
 /dumps/
-download_dumps/__init__.py
 get_dumps.sh
-download_dumps/__init__.py
-download_dumps/__init__.py
+.idea/
